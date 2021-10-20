@@ -22,9 +22,9 @@ docker run --name jmeter-kibana --net jmeter -p 5601:5601 -e "ELASTICSEARCH_HOST
 ```
 docker run --rm -it --net jmeter \
 -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
--v ($pwd)/test:/input/ \
--v ($pwd)/config/pipeline:/usr/share/logstash/pipeline/ \
--v ($pwd)/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
+-v ${PWD}/test:/input/ \
+-v ${PWD}/config/pipeline:/usr/share/logstash/pipeline/ \
+-v ${PWD}/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
 docker.elastic.co/logstash/logstash:7.13.2
 
 ```
