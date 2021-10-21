@@ -61,5 +61,7 @@ jobs:
           EXPECTED_FILE=$PATH_EXPECTED/$FILE_NAME
           OUT_FILE=$PATH_OUT/$FILE_NAME
           cat $OUT_FILE
+          echo ###################$FILE_NAME#####################
+          diff <(jq --sort-keys . $EXPECTED_FILE) <(jq --sort-keys . $OUT_FILE)
 
 
