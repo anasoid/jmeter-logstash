@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir build
           cp -r config build
-          cp testing/config/* build/config/
+          cp -r testing/config/* build/config/
           rm build/config/pipeline/output-elastic-logstash.conf
           mkdir build/out
           ls -lah build/config/pipeline
