@@ -62,6 +62,6 @@ jobs:
           OUT_FILE=$PATH_OUT/$FILE_NAME
           cat $OUT_FILE
           echo ###################$FILE_NAME#####################
-          diff <(jq --sort-keys . $EXPECTED_FILE) <(jq --sort-keys . $OUT_FILE)
+          diff <(jq --sort-keys 'del(.host) or del(."@timestamp")' $EXPECTED_FILE) <(jq --sort-keys 'del(.host) or del(."@timestamp")' $OUT_FILE)
 
 
