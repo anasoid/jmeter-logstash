@@ -46,3 +46,8 @@ jobs:
       - name: Run docker
         run: docker run --rm  -e "FILE_READ_MODE=read" -e "FILE_START_POSITION=beginning" -e "FILE_EXIT_AFTER_READ=true" -v ${PWD}/build/out:/output/ -v ${PWD}/testing/file/in:/input/ -v ${PWD}/build/config/pipeline:/usr/share/logstash/pipeline/ -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml docker.elastic.co/logstash/logstash:7.13.2
 
+      - name: check easy-admin-20211018-082256
+        run: |
+          cat ./build/out/easy-admin-20211018-082256.json
+
+
