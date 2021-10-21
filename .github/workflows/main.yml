@@ -58,10 +58,11 @@ jobs:
       - name: check easy-admin-20211018-082256
         run: |
          
-          for filename in $PATH_EXPECTED/*.json; do
-                 echo ####START###############$filename#####################
-                 EXPECTED_FILE=$PATH_EXPECTED/$filename
-                 OUT_FILE=$PATH_OUT/$filename
+          for filepath in $PATH_EXPECTED/*.json; do
+                 FILE_NAME=${filepath##*/}
+                 echo ####START###############$FILE_NAME#####################
+                 EXPECTED_FILE=$PATH_EXPECTED/$FILE_NAME
+                 OUT_FILE=$PATH_OUT/$FILE_NAME
                  cat $OUT_FILE
                  diff <(jq --sort-keys 'del(.host) or del(."@timestamp")' $EXPECTED_FILE) <(jq --sort-keys 'del(.host) or del(."@timestamp")' $OUT_FILE)
                  echo ####END###############$FILE_NAME#####################
