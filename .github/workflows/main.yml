@@ -39,6 +39,7 @@ jobs:
           cp -r testing/config/* build/config/
           rm build/config/pipeline/output-elastic-logstash.conf
           mkdir build/out
+          chmod +777 build/out
           ls -lah build/config/pipeline
 
        # Run docker
