@@ -57,9 +57,9 @@ jobs:
 
       - name: check easy-admin-20211018-082256
         run: |
-          set FILE_NAME=easy-admin-20211018-082256.json
-          set EXPECTED_FILE=$PATH_EXPECTED/$FILE_NAME
-          set OUT_FILE=$PATH_OUT/$FILE_NAME
+          FILE_NAME=easy-admin-20211018-082256.json
+          EXPECTED_FILE=$PATH_EXPECTED/$FILE_NAME
+          OUT_FILE=$PATH_OUT/$FILE_NAME
           cat $OUT_FILE
 
 
