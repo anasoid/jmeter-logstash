@@ -30,7 +30,7 @@ jobs:
       # PWD
       - name: PWD
         run: pwd
-        
+
       # Runs a set of commands using the runners shell
       - name: prepare build folders
         run: |
@@ -40,3 +40,16 @@ jobs:
           rm build/config/pipeline/output-elastic-logstash.conf
           mkdir build/out
           ls -lah build/config/pipeline
+
+       # Run docker
+      - name: Run docker
+        run: |
+          docker run --rm -it  \
+          -e "FILE_READ_MODE=read" \
+          -e "FILE_START_POSITION=beginning" \
+          -e "FILE_EXIT_AFTER_READ=true" \
+          -v ${PWD}/build/out:/output/ \
+          -v ${PWD}/testing/file/in:/input/ \
+          -v ${PWD}/build/config/pipeline:/usr/share/logstash/pipeline/ \
+          -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
+          docker.elastic.co/logstash/logstash:7.13.2
