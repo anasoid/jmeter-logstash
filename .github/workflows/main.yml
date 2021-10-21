@@ -60,8 +60,8 @@ jobs:
          
           for filename in $PATH_EXPECTED/*.json; do
                  echo ####START###############$filename#####################
-                 EXPECTED_FILE=$PATH_EXPECTED/$filename.json
-                 OUT_FILE=$PATH_OUT/$filename.json
+                 EXPECTED_FILE=$PATH_EXPECTED/$filename
+                 OUT_FILE=$PATH_OUT/$filename
                  cat $OUT_FILE
                  diff <(jq --sort-keys 'del(.host) or del(."@timestamp")' $EXPECTED_FILE) <(jq --sort-keys 'del(.host) or del(."@timestamp")' $OUT_FILE)
                  echo ####END###############$FILE_NAME#####################
