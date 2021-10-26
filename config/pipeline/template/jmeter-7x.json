@@ -41,18 +41,14 @@
       "responseCode": { "type": "keyword" },
       "testname": { "type": "keyword" },
       "project": { "type": "keyword" },
+      "label": { "type": "keyword" },
+      "labels": { "type": "keyword" },
+      "threadName": { "type": "keyword" },
+      "threadGrpName": { "type": "keyword" },
 
+      "globalLabel": { "type": "keyword" },
       "@timestamp": { "type": "date" },
-      "@version": { "type": "keyword" },
-      "geoip": {
-        "dynamic": true,
-        "properties": {
-          "ip": { "type": "ip" },
-          "location": { "type": "geo_point" },
-          "latitude": { "type": "half_float" },
-          "longitude": { "type": "half_float" }
-        }
-      }
+      "@version": { "type": "keyword" }
     }
   }
 }
