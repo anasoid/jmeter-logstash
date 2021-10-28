@@ -1,5 +1,5 @@
 {
-  "index_patterns": "jmeter-*",
+  "index_patterns": "jmeter-jtl-*",
   "version": 60001,
   "settings": {
     "index.refresh_interval": "5s",
@@ -41,6 +41,7 @@
       "responseCode": { "type": "keyword" },
       "testname": { "type": "keyword" },
       "project": { "type": "keyword" },
+      "environment": { "type": "keyword" },
       "label": { "type": "keyword" },
       "labels": { "type": "keyword" },
       "threadName": { "type": "keyword" },
