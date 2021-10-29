@@ -51,7 +51,6 @@ docker.elastic.co/logstash/logstash:7.15.1
 
 | Environment variables              | Description                                                                                                                                                                               | Default                   |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| **DEFAULT_OUTPUT**                 | Elasticsearch url                                                                                                                                                                         | ES                        |
 | **ELASTICSEARCH_HOSTS**            | Elasticsearch output configuration [hosts](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-hosts)                       | http://elasticsearch:9200 |
 | **ELASTICSEARCH_INDEX**            | Elasticsearch output configuration [index](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-index)                       | jmeter-jtl-%{+YYYY.MM.dd} |
 | **ELASTICSEARCH_USER**             | Elasticsearch output configuration [user](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-user)                         |                           |
