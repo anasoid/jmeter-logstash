@@ -46,7 +46,7 @@
       "labels": { "type": "keyword" },
       "threadName": { "type": "keyword" },
       "threadGrpName": { "type": "keyword" },
-
+      "path": { "type": "keyword" },
       "globalLabel": { "type": "keyword" },
       "@timestamp": { "type": "date" },
       "@version": { "type": "keyword" }
