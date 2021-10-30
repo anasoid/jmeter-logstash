@@ -21,8 +21,7 @@
     "Login",
     "get"
   ],
-  "message": "1634541777653,268,Login/get,200,OK,Navigation_Thread_Decreased 1-121,text,true,,7291,453,6,7,https://localhost/login,268,0,80,1634541776850,perfcustomer_act_int_4,null,R1-c42c9ef3-7e8d-41e5-9415-4571162016bf",
-  "path": "/input/easy-admin-20211018-082256.jtl",
+   "path": "/input/easy-admin-20211018-082256.jtl",
   "project": "undefined",
   "relativetime": 0.803,
   "request": "/login",
