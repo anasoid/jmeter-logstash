@@ -53,7 +53,12 @@ jobs:
        # Run docker
       - name: Run docker
         run: |
-          docker run --rm -e "FILE_READ_MODE=read" -e "FILE_START_POSITION=beginning" -e "FILE_EXIT_AFTER_READ=true" -v ${PWD}/$PATH_OUT:/output/ -v ${PWD}/$PATH_IN:/input/ -v ${PWD}/build/config/pipeline:/usr/share/logstash/pipeline/ -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml docker.elastic.co/logstash/logstash:7.13.2
+          docker run --rm -e "FILE_READ_MODE=read" \
+          -e "FILE_START_POSITION=beginning" \
+          -e "FILE_EXIT_AFTER_READ=true" \
+          -v ${PWD}/$PATH_OUT:/output/ \
+          -v ${PWD}/$PATH_IN:/input/ -v ${PWD}/build/config/pipeline:/usr/share/logstash/pipeline/ \
+          -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml docker.elastic.co/logstash/logstash:7.15.1
 
       - name: check Expected Files list
         run: |
