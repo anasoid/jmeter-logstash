@@ -21,7 +21,12 @@ docker network create jmeter
 1. Start elastic search container , Or use any Elasticsearch instance you have already installed.
 
 ```
-docker run --name jmeter-elastic --net jmeter -p 9200:9200 -p 9300:9300 -e "xpack.security.enabled=false" -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+docker run --name jmeter-elastic --net jmeter \
+-p 9200:9200 -p 9300:9300 \
+-e "ES_JAVA_OPTS=-Xms1024m -Xmx1024m" \
+-e "xpack.security.enabled=false" \
+-e "discovery.type=single-node" \
+docker.elastic.co/elasticsearch/elasticsearch:7.15.1
 ```
 
 1. Start Kibana and connect it to elastic search Using environnement variable _ELASTICSEARCH_HOSTS_.
