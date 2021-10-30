@@ -1,4 +1,4 @@
 # Log Levels
 TESTNAME [a-zA-Z0-9]+
-NODEID [a-zA-Z0-9]+
+ENVIRONMENT [a-zA-Z0-9]+
 EXECUTIOND [a-zA-Z0-9-]+

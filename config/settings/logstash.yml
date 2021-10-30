@@ -1,1 +1,2 @@
 pipeline.workers: 1
+pipeline.ecs_compatibility: disabled
