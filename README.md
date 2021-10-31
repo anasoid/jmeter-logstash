@@ -21,7 +21,7 @@ docker network create jmeter
 1. Start elastic search container , Or use any Elasticsearch instance you have already installed.
 
 ```
-docker run --name jmeter-elastic --net jmeter \
+docker run --name jmeter-elastic \
 -p 9200:9200 -p 9300:9300 \
 -e "ES_JAVA_OPTS=-Xms1024m -Xmx1024m" \
 -e "xpack.security.enabled=false" \
@@ -32,7 +32,7 @@ docker.elastic.co/elasticsearch/elasticsearch:7.15.1
 1. Start Kibana and connect it to elastic search Using environnement variable _ELASTICSEARCH_HOSTS_.
 
 ```
-docker run --name jmeter-kibana --net jmeter -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" docker.elastic.co/kibana/kibana:7.15.1
+docker run --name jmeter-kibana -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" docker.elastic.co/kibana/kibana:7.15.1
 ```
 
 ## Run Logstash
@@ -43,7 +43,7 @@ docker run --name jmeter-kibana --net jmeter -p 5601:5601 -e "ELASTICSEARCH_HOST
 4. On the project folder execute the following command, (${PWD} it's the current folder). ${PWD} can be replaced by full path to folder.
 
 ```
-docker run --rm -it --net jmeter \
+docker run --rm -it \
 -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
 -v ${PWD}/input:/input/ \
 -v ${PWD}/config/pipeline:/usr/share/logstash/pipeline/ \
