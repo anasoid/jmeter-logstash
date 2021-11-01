@@ -77,7 +77,6 @@ docker.elastic.co/logstash/logstash:7.15.1
 | `FILE_START_POSITION`     | File input configuration [start_position](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-start_position)               | end       |
 | `FILE_EXIT_AFTER_READ`    | File input configuration [exit_after_read](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-exit_after_read)             | false     |
 | `FILE_COMPLETED_ACTION`   | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-file_completed_action) | delete    |
-| `sincedb_path`            | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-sincedb_path)          | delete    |
 | `MISSED_RESPONSE_CODE`    | Default response code when not present in response like on timeout case                                                                                               | 510       |
 | `PARSE_LABELS_SPLIT_CHAR` | Char to split label into labels                                                                                                                                       | /         |
 
