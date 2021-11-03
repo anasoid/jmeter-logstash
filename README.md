@@ -67,18 +67,23 @@ docker.elastic.co/logstash/logstash:7.15.1
 
 ### Logstash
 
-| Environment variables     | Description                                                                                                                                                           | Default   |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
-| `PROJECT_NAME`            | Project name                                                                                                                                                          | undefined |
-| `ENVIRONMENT_NAME`        | Environment name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} )                                          | undefined |
-| `TEST_NAME`               | Test name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} or {test_name})     | undefined |
-| `EXECUTION_ID`            | Execution Id, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} )                | undefined |
-| `FILE_READ_MODE`          | File input configuration [mode](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-mode)                                   | tail      |
-| `FILE_START_POSITION`     | File input configuration [start_position](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-start_position)               | end       |
-| `FILE_EXIT_AFTER_READ`    | File input configuration [exit_after_read](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-exit_after_read)             | false     |
-| `FILE_COMPLETED_ACTION`   | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-file_completed_action) | delete    |
-| `MISSED_RESPONSE_CODE`    | Default response code when not present in response like on timeout case                                                                                               | 510       |
-| `PARSE_LABELS_SPLIT_CHAR` | Char to split label into labels                                                                                                                                       | /         |
+| Environment variables                | Description                                                                                                                                                           | Default   |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `PROJECT_NAME`                       | Project name                                                                                                                                                          | undefined |
+| `ENVIRONMENT_NAME`                   | Environment name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} )                                          | undefined |
+| `TEST_NAME`                          | Test name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} or {test_name})     | undefined |
+| `EXECUTION_ID`                       | Execution Id, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} )                | undefined |
+| `FILE_READ_MODE`                     | File input configuration [mode](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-mode)                                   | tail      |
+| `FILE_START_POSITION`                | File input configuration [start_position](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-start_position)               | end       |
+| `FILE_EXIT_AFTER_READ`               | File input configuration [exit_after_read](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-exit_after_read)             | false     |
+| `FILE_COMPLETED_ACTION`              | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-file_completed_action) | delete    |
+| `MISSED_RESPONSE_CODE`               | Default response code when not present in response like on timeout case                                                                                               | 510       |
+| `PARSE_LABELS_SPLIT_CHAR`            | Char to split label into labels                                                                                                                                       | /         |
+| `PARSE_TRANSACTION_REGEX`            | Regex to identify transaction Label                                                                                                                                   | \_.+\_\_  |
+| `PARSE_FILTER_INCLUDE_SAMPLER_REGEX` | Regex used to include samplers and transactions.                                                                                                                      |           |
+| `PARSE_FILTER_EXCLUDE_SAMPLER_REGEX` | Regex used to exclude samplers and transactions.                                                                                                                      |           |
+| `PARSE_REMOVE_TRANSACTION`           | Remove transaction.                                                                                                                                                   | false     |
+| `PARSE_REMOVE_SAMPLER`               | Remove sampler, not transaction.                                                                                                                                      | false     |
 
 ## Fields
 
