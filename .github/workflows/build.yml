@@ -39,4 +39,4 @@ jobs:
         # Run docker
       - name: Check Image
         run: |
-          docker run --rm -it logstash/jmeter/elasticsearch -t
+          docker run --rm  logstash/jmeter/elasticsearch -t
