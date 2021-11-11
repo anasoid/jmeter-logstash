@@ -11,8 +11,9 @@ Jmeter JTL parsing with Logstash and elasticsearch
 5. Add relative time to compare different Executions, variable TESTSTART.MS should be logged with property [sample_variables](https://jmeter.apache.org/usermanual/properties_reference.html#results_file_config)
 6. Add Project name, test name, environment and executionId to organize results and compare different execution.
 7. Split Label name to have multi tags by request (by default split by '/').
-8. Supporting ElasticSearch , influxDB, and can be adapted for other tools.
-9. can also index custom field logged in file with property : [sample_variables](https://jmeter.apache.org/usermanual/properties_reference.html#results_file_config)
+8. Flag subresult, when there is a redirection 302,.. Subrequest has a have a suffix like "-xx" when xx is the order number
+9. Supporting ElasticSearch , influxDB, and can be adapted for other tools.
+10. can also index custom field logged in file with property : [sample_variables](https://jmeter.apache.org/usermanual/properties_reference.html#results_file_config)
 
 # Getting Started
 
@@ -198,13 +199,14 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 | `FILE_COMPLETED_ACTION`              | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-file_completed_action) | delete    |
 | `MISSED_RESPONSE_CODE`               | Default response code when not present in response like on timeout case                                                                                               | 510       |
 | `PARSE_LABELS_SPLIT_CHAR`            | Char to split label into labels                                                                                                                                       | /         |
-| `PARSE_TRANSACTION_REGEX`            | Regex to identify transaction Label                                                                                                                                   | \_.+\_\_  |
+| `PARSE_TRANSACTION_REGEX`            | Regex to identify transaction Label                                                                                                                                   | \_.+\_    |
 | `PARSE_FILTER_INCLUDE_SAMPLER_REGEX` | Regex used to include samplers and transactions.                                                                                                                      |           |
 | `PARSE_FILTER_EXCLUDE_SAMPLER_REGEX` | Regex used to exclude samplers and transactions.                                                                                                                      |           |
 | `PARSE_REMOVE_TRANSACTION`           | Remove transaction.                                                                                                                                                   | false     |
 | `PARSE_REMOVE_SAMPLER`               | Remove sampler, not transaction.                                                                                                                                      | false     |
 | `PARSE_REMOVE_MESSAGE_FIELD`         | Remove field message.                                                                                                                                                 | true      |
 | `PARSE_CLEANUP_FIELDS`               | Remove fields : host, path.                                                                                                                                           | true      |
+| `PARSE_WITH_FLAG_SUBRESULT`          | Flag result with prefix like have a suffix like "-xx" when xx is the order number                                                                                     | true      |
 
 ## Fields
 
@@ -259,3 +261,4 @@ For additional fields see documentation on [Results file configuration](https://
 
 1. Logstash instance can't parse CSV file with different header Format, as first header will be used for all file, if you have files with different format you should use each time a new instance or restart the instance.
 1. Change sincedb file can't done on logstash with Elasticsearch without building image.
+2. Label with suffix '-{number}' will be considered as subresult, so don't prefix label with '-{number}' or disable subresult flag with PARSE_WITH_FLAG_SUBRESULT.
