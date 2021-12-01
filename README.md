@@ -200,6 +200,7 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 | `MISSED_RESPONSE_CODE`               | Default response code when not present in response like on timeout case                                                                                               | 510       |
 | `PARSE_LABELS_SPLIT_CHAR`            | Char to split label into labels                                                                                                                                       | /         |
 | `PARSE_TRANSACTION_REGEX`            | Regex to identify transaction Label                                                                                                                                   | \_.+\_    |
+| `PARSE_TRANSACTION_AUTO`             | Detect transaction controller based on URL null, and message format.                                                                                                  | true      |
 | `PARSE_FILTER_INCLUDE_SAMPLER_REGEX` | Regex used to include samplers and transactions.                                                                                                                      |           |
 | `PARSE_FILTER_EXCLUDE_SAMPLER_REGEX` | Regex used to exclude samplers and transactions.                                                                                                                      |           |
 | `PARSE_REMOVE_TRANSACTION`           | Remove transaction.                                                                                                                                                   | false     |
@@ -261,4 +262,4 @@ For additional fields see documentation on [Results file configuration](https://
 
 1. Logstash instance can't parse CSV file with different header Format, as first header will be used for all file, if you have files with different format you should use each time a new instance or restart the instance.
 1. Change sincedb file can't done on logstash with Elasticsearch without building image.
-2. Label with suffix '-{number}' will be considered as subresult, so don't prefix label with '-{number}' or disable subresult flag with PARSE_WITH_FLAG_SUBRESULT.
+1. Label with suffix '-{number}' will be considered as subresult, so don't prefix label with '-{number}' or disable subresult flag with PARSE_WITH_FLAG_SUBRESULT.
