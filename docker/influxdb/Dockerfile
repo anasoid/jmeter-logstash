@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash-oss:7.15.1
+FROM docker.elastic.co/logstash/logstash-oss:7.16.1
 
 RUN rm -f /usr/share/logstash/pipeline/logstash.conf
 ADD config/pipeline/ /usr/share/logstash/pipeline/
