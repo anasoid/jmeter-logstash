@@ -38,5 +38,6 @@
   "threadNumber": 121,
   "timestamp": "2021-10-18T07:22:57.653Z",
   "transaction": false,
-  "user_login": "perfcustomer_act_int_4"
+  "user_login": "perfcustomer_act_int_4",
+  "workerNode": "localhost"
 }
