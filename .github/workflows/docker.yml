@@ -63,7 +63,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ${{ matrix.output }}/Dockerfile
+          file: docker/${{ matrix.output }}/Dockerfile
           load: true
           push: false
           build-args: |
