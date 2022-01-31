@@ -11,8 +11,8 @@ Jmeter JTL parsing with Logstash and elasticsearch
 
 ## Image version
 
-- [`latest`, `7.16`, `7.16.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/5.x/eclipse-temurin/Dockerfile)
-- [`influxdb`,`influxdb-7.16`, `influxdb-7.16.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/5.x/eclipse-temurin/Dockerfile)
+- [`latest`, `7.16`, `7.16.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [`influxdb`,`influxdb-7.16`, `influxdb-7.16.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 
 ## Features
 
@@ -154,7 +154,7 @@ Run Logstash without remove container after stop.
 ```shell
 docker run   -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
 -v ${PWD}/input:/input/ \
-logstash/jmeter/elasticsearch
+anasoid/jmeter-logstash
 
 ```
 
@@ -165,7 +165,7 @@ docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9
 -v ${PWD}/input:/input/ \
 -e "FILE_READ_MODE=read" \
 -e "FILE_START_POSITION=beginning" \
-logstash/jmeter/elasticsearch
+anasoid/jmeter-logstash
 
 ```
 
@@ -177,7 +177,7 @@ docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9
 -e "FILE_READ_MODE=read" \
 -e "FILE_START_POSITION=beginning" \
 -e "FILE_COMPLETED_ACTION=log" \
-logstash/jmeter/elasticsearch
+anasoid/jmeter-logstash
 
 ```
 
@@ -187,17 +187,15 @@ Run Logstash without with external sincedb folder.
 docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
 -v ${PWD}/input:/input/ \
 -v ${PWD}/.sincedb:/usr/share/logstash/data/plugins/inputs/file \
-logstash/jmeter/elasticsearch
+anasoid/jmeter-logstash
 
 ```
 
 Run Logstash with influxDB custom port.
 
 ```shell
-#build Image
-docker build -f docker/influxdb/Dockerfile . -t logstash/jmeter/influxdb
 #Run Image
-docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PWD}/input:/input/ logstash/jmeter/influxdb
+docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PWD}/input:/input/ anasoid/jmeter-logstash:influxdb
 
 
 ```
