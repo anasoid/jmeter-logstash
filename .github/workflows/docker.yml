@@ -1,0 +1,100 @@
+name: Docker Build ⚓
+
+on: [push, pull_request]
+
+jobs:
+  # Single job now to build Docker Image, run GHC unit tests, and push to DockerHub
+  build_test_push:
+    name: Build, Test and Publish
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - output: "elasticsearch"
+            prefix: ""
+            elastic-branch: 7.16
+            elastic-version: 7.16.3
+            tags-latest: "latest"
+
+          - output: "influxdb"
+            prefix: "influxdb-"
+            elastic-branch: 7.16
+            elastic-version: 7.16.3
+            tags-latest: "influxdb"
+
+    # v2 https://github.com/docker/build-push-action/blob/master/UPGRADE.md
+    steps:
+      - name: Checkout ✅
+        uses: actions/checkout@v2
+
+      - name: Config 📦
+        run: |
+          echo output=${{ matrix.output }}
+          echo prefix=${{ matrix.prefix }}
+          echo elastic-version=${{ matrix.elastic-version }}
+          echo elastic-branch=${{ matrix.elastic-branch }}
+          echo tags-latest=${{ matrix.tags-latest }}
+
+      - name: Prepare 📦
+        id: prep
+        run: |
+          DOCKER_IMAGE=anasoid/jmeter-logstash
+          VERSION="${{ matrix.prefix }}${{ matrix.elastic-version }}"
+          echo ::set-output name=image::${DOCKER_IMAGE}
+          echo ::set-output name=version::${VERSION}
+          echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          if [[ "${{ matrix.with-plugins }}" == "true" ]];then   echo ::set-output name=suffix::-plugins; else   echo ::set-output name=suffix::; fi;
+
+      - name: Show Image Settings 📦
+        run: echo "IMAGE=${{ steps.prep.outputs.image }} VERSION=${{ steps.prep.outputs.version }} TAGS=${{ steps.prep.outputs.tags }}"
+
+      - name: Set up Docker Buildx 📦
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Inspect builder
+        run: |
+          echo "Name:      ${{ steps.buildx.outputs.name }}"
+          echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
+          echo "Status:    ${{ steps.buildx.outputs.status }}"
+          echo "Flags:     ${{ steps.buildx.outputs.flags }}"
+          echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
+
+      - name: Docker Build only - retain local Image 📦
+        id: build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/${{ matrix.output }}/Dockerfile
+          load: true
+          push: false
+          build-args: |
+            LOGSTASH_VERSION=${{ matrix.elastic-version }}
+
+          tags: |
+            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.elastic-version }}
+            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.elastic-branch }}
+            ${{ steps.prep.outputs.image }}:${{ matrix.tags-latest }}
+          labels: |
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
+            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ github.sha }}
+
+      - name: Result 📦
+        id: result
+        run: |
+          echo ::set-output name=currentImage::${{ steps.prep.outputs.image }}:${{ matrix.elastic-branch }}
+
+      #Publish on master
+      - name: Login to DockerHub 📦
+        if: ${{ github.ref_name == 'master' }}
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push to Docker repo (on Push only) ☁️
+        if: ${{ github.ref_name == 'master' }}
+        run: docker image push --all-tags ${{ steps.prep.outputs.image }}
