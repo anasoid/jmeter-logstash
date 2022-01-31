@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   # Single job now to build Docker Image, run GHC unit tests, and push to DockerHub
   build_test_push:
-    name: Build, Test and Publish
+    name: Build and Publish
 
     runs-on: ubuntu-latest
     strategy:
