@@ -2,6 +2,18 @@
 
 Jmeter JTL parsing with Logstash and elasticsearch
 
+# Quick reference
+
+- **Where to get help**:
+  - [Issues](https://github.com/anasoid/jmeter-logstash/issues)
+  - [Discussions](https://github.com/anasoid/jmeter-logstash/discussions)
+  - [Documentation](https://github.com/anasoid/jmeter-logstash)
+
+## Image version
+
+- [`latest`, `7.16`, `7.16.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/5.x/eclipse-temurin/Dockerfile)
+- [`influxdb`,`influxdb-7.16`, `influxdb-7.16.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/5.x/eclipse-temurin/Dockerfile)
+
 ## Features
 
 1. Parse Standard JTL (CSV Format).
@@ -15,9 +27,40 @@ Jmeter JTL parsing with Logstash and elasticsearch
 9. Supporting ElasticSearch , influxDB, and can be adapted for other tools.
 10. can also index custom field logged in file with property : [sample_variables](https://jmeter.apache.org/usermanual/properties_reference.html#results_file_config)
 
-# Getting Started
+## Content
 
-This config is tested with ELK version **7.15.1**, but it is not directly dependent by this version it should work with other version 7.xxx (maybe _8.xx_ ).
+- [jmeter-logstash](#jmeter-logstash)
+- [Quick reference](#quick-reference)
+  - [Image version](#image-version)
+  - [Features](#features)
+  - [Content](#content)
+  - [Image Variants](#image-variants)
+- [Getting Started](#getting-started)
+  - [Create ElasticSearch stack (_Only if using ElasticSearch & Kibana_)](#create-elasticsearch-stack-only-if-using-elasticsearch--kibana)
+  - [Run Logstash](#run-logstash)
+    - [Run Directly for ElasticSearch](#run-directly-for-elasticsearch)
+    - [Run With image from docker hub for Elasticsearch](#run-with-image-from-docker-hub-for-elasticsearch)
+    - [Run With image from docker hub for InfluxDB](#run-with-image-from-docker-hub-for-influxdb)
+  - [Dashboards](#dashboards)
+    - [Kibana](#kibana)
+  - [HOW-TO](#how-to)
+    - [Example](#example)
+  - [Parameters](#parameters)
+    - [ElasticSearch configuration](#elasticsearch-configuration)
+    - [InfluxDB configuration](#influxdb-configuration)
+    - [Logstash](#logstash)
+  - [Fields](#fields)
+- [Troubleshooting & Limitation](#troubleshooting--limitation)
+
+## Image Variants
+
+The `jmeter-logstash` images come in many flavors, each designed for a specific use case.
+The images version are based on component used to build image, default use elasticsearch output:
+
+1. **Logstash Version**: 7.16.3 -> default for 7.16.
+1. **influxdb** : Pre-configured image with influxdb output.
+
+# Getting Started
 
 ## Create ElasticSearch stack (_Only if using ElasticSearch & Kibana_)
 
@@ -65,25 +108,22 @@ docker.elastic.co/logstash/logstash:7.15.1
 
 ```
 
-### Run With custom Docker image for Elasticsearch
+### Run With image from docker hub for Elasticsearch
 
 ```shell
-#build Image
-docker build -f docker/elasticsearch/Dockerfile . -t logstash/jmeter/elasticsearch
+
 #Run Image
-docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" -v ${PWD}/input:/input/ logstash/jmeter/elasticsearch
+docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" -v ${PWD}/input:/input/ anasoid/jmeter-logstash
 
 ```
 
-### Run With custom Docker image for InfluxDB
+### Run With image from docker hub for InfluxDB
 
 Adapt parameters for your Influxdb like (INFLUXDB_HOST ..) See [InfluxDB configuration](#influxdb- configuration).
 
 ```shell
-#build Image
-docker build -f docker/influxdb/Dockerfile . -t logstash/jmeter/influxdb
 #Run Image
-docker run --rm -it -e "INFLUXDB_HOST=localhost" -v ${PWD}/input:/input/ logstash/jmeter/influxdb
+docker run --rm -it -e "INFLUXDB_HOST=localhost" -v ${PWD}/input:/input/ anasoid/jmeter-logstash:influxdb
 
 ```
 
