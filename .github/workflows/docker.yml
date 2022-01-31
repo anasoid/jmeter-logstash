@@ -12,11 +12,13 @@ jobs:
       matrix:
         include:
           - output: "elasticsearch"
+            prefix: ""
             elastic-branch: 7.16
             elastic-version: 7.16.3
             tags-latest: "latest"
 
           - output: "influxdb"
+            prefix: "influxdb-"
             elastic-branch: 7.16
             elastic-version: 7.16.3
             tags-latest: "influxdb-latest"
@@ -29,6 +31,7 @@ jobs:
       - name: Config 📦
         run: |
           echo output=${{ matrix.output }}
+          echo prefix=${{ matrix.prefix }}
           echo elastic-version=${{ matrix.elastic-version }}
           echo elastic-branch=${{ matrix.elastic-branch }}
           echo tags-latest=${{ matrix.tags-latest }}
@@ -37,7 +40,7 @@ jobs:
         id: prep
         run: |
           DOCKER_IMAGE=anasoid/jmeter-logstash
-          VERSION="${{ matrix.output }}-${{ matrix.elastic-version }}"
+          VERSION="${{ matrix.prefix }}${{ matrix.elastic-version }}"
           echo ::set-output name=image::${DOCKER_IMAGE}
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
@@ -70,8 +73,8 @@ jobs:
             LOGSTASH_VERSION=${{ matrix.elastic-version }}
 
           tags: |
-            ${{ steps.prep.outputs.image }}:${{ matrix.output }}-${{ matrix.elastic-version }}
-            ${{ steps.prep.outputs.image }}:${{ matrix.output }}-${{ matrix.elastic-branch }}
+            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.elastic-version }}
+            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.elastic-branch }}
             ${{ steps.prep.outputs.image }}:${{ matrix.tags-latest }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
