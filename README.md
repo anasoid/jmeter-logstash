@@ -104,7 +104,7 @@ docker run --rm -it \
 -v ${PWD}/config/pipeline:/usr/share/logstash/pipeline/ \
 -v ${PWD}/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
 -v ${PWD}/config/settings/jvm.options:/usr/share/logstash/config/jvm.options \
-docker.elastic.co/logstash/logstash:7.15.1
+docker.elastic.co/logstash/logstash-oss:7.16.3
 
 ```
 
@@ -139,12 +139,10 @@ Download Dashboards from [Kibana Dashboards](/docs/kibana/jmeter-jtl-kibana.ndjs
 
 ## HOW-TO
 
-1. To read files from the beginning use the folowing arguments (**-e "FILE_READ_MODE=read" -e "FILE_START_POSITION=beginning"** ) with logstash .
-2. To exit after all files parsed use (** -e "FILE_EXIT_AFTER_READ=true" **), should be used with (**-e "FILE_READ_MODE=read" -e "FILE_START_POSITION=beginning" **) .
-3. To not remove container logstash after execution not use --rm from arguments.
-4. To not remove input File after after indexation use (**-e "FILE_COMPLETED_ACTION=log"**) , removing input file is the default behavior if (**-e "FILE_READ_MODE=read"**).
-5. Logstash keep information on position f last line parsed in a file sincedb, this file by default is on the path _/usr/share/logstash/data/plugins/inputs/file_, if you use the same container this file will be persisted even you restart logstash cotainer, and if you need to maintain this file even you remove container you can mount volume folder in the path (_/usr/share/logstash/data/plugins/inputs/file_)
-6. To have relative time for comparison test start time should be logged :
+1. To exit after all files parsed use (**-e "FILE_EXIT_AFTER_READ=true"**) should be used with ( **-e "FILE_READ_MODE=read"**) ..
+2. To not remove container logstash after execution not use --rm from arguments.
+3. Logstash keep information on position f last line parsed in a file sincedb, this file by default is on the path _/usr/share/logstash/data/plugins/inputs/file_, if you use the same container this file will be persisted even you restart logstash cotainer, and if you need to maintain this file even you remove container you can mount volume folder in the path (_/usr/share/logstash/data/plugins/inputs/file_)
+4. To have relative time for comparison test start time should be logged :
    in user.properties file (sample_variables=TESTSTART.MS,...) or add properties with file using -q argument or directly in command line with (-Jsample_variables=TESTSTART.MS,..) see [Full list of command-line options](https://jmeter.apache.org/usermanual/get-started.html#options)
 
 ### Example
@@ -158,30 +156,17 @@ anasoid/jmeter-logstash
 
 ```
 
-Run Logstash and start file fom beginning (this will remove file after the end of reading).
+Run Logstash and remove file after the end of reading.
 
-```shell
+````shell
 docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
 -v ${PWD}/input:/input/ \
 -e "FILE_READ_MODE=read" \
--e "FILE_START_POSITION=beginning" \
+-e "FILE_COMPLETED_ACTION=delete" \
 anasoid/jmeter-logstash
 
-```
 
-Run Logstash and start file fom beginning (without removing file).
-
-```shell
-docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
--v ${PWD}/input:/input/ \
--e "FILE_READ_MODE=read" \
--e "FILE_START_POSITION=beginning" \
--e "FILE_COMPLETED_ACTION=log" \
-anasoid/jmeter-logstash
-
-```
-
-Run Logstash without with external sincedb folder.
+Run Logstash with external sincedb folder.
 
 ```shell
 docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" \
@@ -189,7 +174,7 @@ docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9
 -v ${PWD}/.sincedb:/usr/share/logstash/data/plugins/inputs/file \
 anasoid/jmeter-logstash
 
-```
+````
 
 Run Logstash with influxDB custom port.
 
@@ -233,9 +218,9 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 | `TEST_NAME`                          | Test name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} or {test_name})     | undefined |
 | `EXECUTION_ID`                       | Execution Id, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} )                | undefined |
 | `FILE_READ_MODE`                     | File input configuration [mode](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-mode)                                   | tail      |
-| `FILE_START_POSITION`                | File input configuration [start_position](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-start_position)               | end       |
+| `FILE_START_POSITION`                | File input configuration [start_position](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-start_position)               | beginning |
 | `FILE_EXIT_AFTER_READ`               | File input configuration [exit_after_read](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-exit_after_read)             | false     |
-| `FILE_COMPLETED_ACTION`              | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-file_completed_action) | delete    |
+| `FILE_COMPLETED_ACTION`              | File input configuration [file_completed_action](https://www.elastic.co/guide/en/logstash/current/plugins-inputs-file.html#plugins-inputs-file-file_completed_action) | log       |
 | `MISSED_RESPONSE_CODE`               | Default response code when not present in response like on timeout case                                                                                               | 510       |
 | `PARSE_LABELS_SPLIT_CHAR`            | Char to split label into labels                                                                                                                                       | /         |
 | `PARSE_TRANSACTION_REGEX`            | Regex to identify transaction Label                                                                                                                                   | \_.+\_    |
