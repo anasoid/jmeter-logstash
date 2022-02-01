@@ -227,6 +227,7 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 
 | Environment variables                | Description                                                                                                                                                           | Default   |
 | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| `INPUT_PATH`                         | Default folder input used , pattern : (`["${INPUT_PATH:/input}/**.jtl","${INPUT_PATH:/input}/**.csv"]`)                                                               | /input    |
 | `PROJECT_NAME`                       | Project name                                                                                                                                                          | undefined |
 | `ENVIRONMENT_NAME`                   | Environment name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} )                                          | undefined |
 | `TEST_NAME`                          | Test name, if not provided will try to extract value from file name ( {test_name}-{environment-name}-{execution_id} or {test_name}-{execution_id} or {test_name})     | undefined |
