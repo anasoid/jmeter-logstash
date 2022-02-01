@@ -220,8 +220,8 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 | `INFLUXDB_PORT`        | InfluxDB output configuration [port](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-port)               | 8086      |
 | `INFLUXDB_USER`        | InfluxDB output configuration [user](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-user)               |           |
 | `INFLUXDB_PASSWORD`    | InfluxDB output configuration [password](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-password)       |           |
-| `INFLUXDB_DB`          | InfluxDB output configuration [DB](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-db)                   | false     |
-| `INFLUXDB_MEASUREMENT` | InfluxDB output configuration [measurement](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-measurement) | false     |
+| `INFLUXDB_DB`          | InfluxDB output configuration [DB](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-db)                   | jmeter    |
+| `INFLUXDB_MEASUREMENT` | InfluxDB output configuration [measurement](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-influxdb.html#plugins-outputs-influxdb-measurement) | jtl       |
 
 ### Logstash
 
