@@ -139,7 +139,7 @@ Download Dashboards from [Kibana Dashboards](/docs/kibana/jmeter-jtl-kibana.ndjs
 
 ## HOW-TO
 
-1. To exit after all files parsed use (**-e "FILE_EXIT_AFTER_READ=true"**) should be used with ( **-e "FILE_START_POSITION=beginning"**) ..
+1. To exit after all files parsed use (**-e "FILE_EXIT_AFTER_READ=true"**) should be used with ( **-e "FILE_READ_MODE=read"**) ..
 2. To not remove container logstash after execution not use --rm from arguments.
 3. Logstash keep information on position f last line parsed in a file sincedb, this file by default is on the path _/usr/share/logstash/data/plugins/inputs/file_, if you use the same container this file will be persisted even you restart logstash cotainer, and if you need to maintain this file even you remove container you can mount volume folder in the path (_/usr/share/logstash/data/plugins/inputs/file_)
 4. To have relative time for comparison test start time should be logged :
