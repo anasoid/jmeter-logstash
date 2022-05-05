@@ -12,16 +12,46 @@ jobs:
       matrix:
         include:
           - output: "elasticsearch"
-            elastic-version: 7.16.3
-            elastic-branch: 7.16
+            elastic-version: 7.17.3
+            elastic-branch: 7.17
+            prefix: ""
+            tags-latest: "latest-7"
+
+          - output: "elasticsearch"
+            elastic-version: 8.1.3
+            elastic-branch: 8.1
             prefix: ""
             tags-latest: "latest"
 
+          - output: "elasticsearch"
+            elastic-version: 8.2.0
+            elastic-branch: 8.2
+            prefix: ""
+            tags-latest: "latest-8"
+
           - output: "influxdb"
-            elastic-version: 7.16.3
-            elastic-branch: 7.16
+            elastic-version: 7.17.3
+            elastic-branch: 7.17
             prefix: "influxdb-"
             tags-latest: "influxdb"
+
+          - output: "influxdb"
+            elastic-version: 7.17.3
+            elastic-branch: 7.17
+            prefix: "influxdb-"
+            tags-latest: "influxdb-7"
+
+          - output: "influxdb"
+            elastic-version: 8.1.3
+            elastic-branch: 8.1
+            prefix: "influxdb-"
+            tags-latest: "influxdb"
+
+          - output: "influxdb"
+            elastic-version: 8.2.0
+            elastic-branch: 8.1
+            prefix: "influxdb-"
+            tags-latest: "influxdb-8"
 
     # v2 https://github.com/docker/build-push-action/blob/master/UPGRADE.md
     steps:
