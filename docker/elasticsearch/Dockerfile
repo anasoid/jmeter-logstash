@@ -1,4 +1,4 @@
-ARG  LOGSTASH_VERSION=7.17.4
+ARG  LOGSTASH_VERSION=8.3.2
 FROM docker.elastic.co/logstash/logstash-oss:${LOGSTASH_VERSION}
 
 RUN rm -f /usr/share/logstash/pipeline/logstash.conf
