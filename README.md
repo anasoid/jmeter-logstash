@@ -11,18 +11,19 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
 
 ## Image version
 
-- [`latest`, `8.4`, `8.4.2` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [ `latest`, `7.17`, `7.17.6` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [ `8.4`, `8.4.2` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
 - [ `8.3`, `8.3.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
 - [ `8.2`, `8.2.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
 - [ `8.1`, `8.1.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
-- [ `7`, `8.17`, `7.17.6` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
-- 
-- [`influxdb`,`influxdb-8.4`, `influxdb-8.4.2` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+
+- [`influxdb`, `influxdb-7.17`, `influxdb-7.17.6` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+- [`influxdb-8.4`, `influxdb-8.4.2` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 - [`influxdb-8.3`, `influxdb-8.3.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 - [`influxdb-8.2`, `influxdb-8.2.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 - [`influxdb-8.1`, `influxdb-8.1.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
-- [`influxdb-7.17`, `influxdb-7.17.6` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
-- 
+
+
 ## Features
 
 1. Parse Standard JTL (CSV Format).
@@ -47,8 +48,8 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
 - [Getting Started](#getting-started)
   - [Create ElasticSearch stack (_Only if using ElasticSearch & Kibana_)](#create-elasticsearch-stack-only-if-using-elasticsearch--kibana)
   - [Run Logstash](#run-logstash)
-    - [Run Directly for ElasticSearch](#run-directly-for-elasticsearch)
-    - [Run With image from docker hub for Elasticsearch](#run-with-image-from-docker-hub-for-elasticsearch)
+    - [Run With image from docker hub for Elasticsearch (way 1, preferred)](#run-with-image-from-docker-hub-for-elasticsearch-way-1-preferred)
+    - [Run Directly for ElasticSearch (way 2)](#run-directly-for-elasticsearch-way-2)
     - [Run With image from docker hub for InfluxDB](#run-with-image-from-docker-hub-for-influxdb)
   - [Dashboards](#dashboards)
     - [Kibana](#kibana)
@@ -66,7 +67,7 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
 The `jmeter-logstash` images come in many flavors, each designed for a specific use case.
 The images version are based on component used to build image, default use elasticsearch output:
 
-1. **Logstash Version**: 7.16.3 -> default for 7.16.
+1. **Logstash Version**: 7.17.6 -> default for 7.17.
 1. **influxdb** : Pre-configured image with influxdb output.
 
 # Getting Started
@@ -87,23 +88,33 @@ docker run --name jmeter-elastic  --net jmeter \
 -e "ES_JAVA_OPTS=-Xms1024m -Xmx1024m" \
 -e "xpack.security.enabled=false" \
 -e "discovery.type=single-node" \
-docker.elastic.co/elasticsearch/elasticsearch:7.15.1
+docker.elastic.co/elasticsearch/elasticsearch:8.4.1
 ```
 
 3. Start Kibana and connect it to elastic search Using environnement variable _ELASTICSEARCH_HOSTS_.
 
 ```shell
-docker run --name jmeter-kibana  --net jmeter -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" docker.elastic.co/kibana/kibana:7.15.1
+docker run --name jmeter-kibana  --net jmeter -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" docker.elastic.co/kibana/kibana:8.4.1
 ```
 
 ## Run Logstash
 
+1. In the project folder create a folder named 'input' or you can use any input folder in your machine.
+1. If you choose to use a different input folder, you should change **"${PWD}/input"** on the following command by your input folder.
+
+
+
+### Run With image from docker hub for Elasticsearch (way 1, preferred)
+
+```shell
+
+#Run Image
+docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" -v ${PWD}/input:/input/ anasoid/jmeter-logstash
+
+```
+
+### Run Directly for ElasticSearch (way 2)
 1. Clone this repository or download it.
-2. In the project folder create a folder named 'input' or you can use any input folder in your machine.
-3. If you choose to use a different input folder, you should change **"${PWD}/input"** on the following command by your input folder.
-
-### Run Directly for ElasticSearch
-
 1. On the project folder execute the following command, (${PWD} it's the current folder). ${PWD} can be replaced by full path to folder.
 
 ```shell
@@ -113,16 +124,7 @@ docker run --rm -it \
 -v ${PWD}/config/pipeline:/usr/share/logstash/pipeline/ \
 -v ${PWD}/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
 -v ${PWD}/config/settings/jvm.options:/usr/share/logstash/config/jvm.options \
-docker.elastic.co/logstash/logstash-oss:7.16.3
-
-```
-
-### Run With image from docker hub for Elasticsearch
-
-```shell
-
-#Run Image
-docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" -v ${PWD}/input:/input/ anasoid/jmeter-logstash
+docker.elastic.co/logstash/logstash-oss:7.17.6
 
 ```
 
@@ -198,13 +200,14 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 
 ### ElasticSearch configuration
 
-| Environment variables            | Description                                                                                                                                                                               | Default                   |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
-| `ELASTICSEARCH_HOSTS`            | Elasticsearch output configuration [hosts](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-hosts)                       | http://elasticsearch:9200 |
-| `ELASTICSEARCH_INDEX`            | Elasticsearch output configuration [index](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-index)                       | jmeter-jtl-%{+YYYY.MM.dd} |
-| `ELASTICSEARCH_USER`             | Elasticsearch output configuration [user](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-user)                         |                           |
-| `ELASTICSEARCH_PASSWORD`         | Elasticsearch output configuration [password](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-password)                 |                           |
-| `ELASTICSEARCH_HTTP_COMPRESSION` | Elasticsearch output configuration [http_compression](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-http_compression) | false                     |
+| Environment variables            | Description                                                                                                                                                                               | Default                                  |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| `ELASTICSEARCH_HOSTS`            | Elasticsearch output configuration [hosts](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-hosts)                       | http://elasticsearch:9200                |
+| `ELASTICSEARCH_INDEX`            | Elasticsearch output configuration [index](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-index)                       | jmeter-jtl-%{+YYYY.MM.dd}                |
+| `ELASTICSEARCH_USER`             | Elasticsearch output configuration [user](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-user)                         |                                          |
+| `ELASTICSEARCH_PASSWORD`         | Elasticsearch output configuration [password](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-password)                 |                                          |
+| `ELASTICSEARCH_HTTP_COMPRESSION` | Elasticsearch output configuration [http_compression](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-http_compression) | false                                    |
+| `ELASTICSEARCH_VERSION`          | Elasticsearch template version, shoud be the same as elasticsearch version (not logstash version), valid values are 7 and 8                                                               | 7 for logstash 7.x et 8 for logstash 8.x |
 
 ### InfluxDB configuration
 

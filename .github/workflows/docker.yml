@@ -12,64 +12,74 @@ jobs:
       matrix:
         include:
           - output: "elasticsearch"
-            elastic-version: 7.17.6
-            elastic-branch: 7.17
+            logstash-version: 7.17.6
+            logstash-branch: 7.17
+            elasticsearch-version: 7
             prefix: ""
-            tags-latest: "7"
+            tags-latest: "latest"
 
           - output: "elasticsearch"
-            elastic-version: 8.1.3
-            elastic-branch: 8.1
+            logstash-version: 8.1.3
+            logstash-branch: 8.1
+            elasticsearch-version: 8
             prefix: ""
             tags-latest: "8.1"
 
           - output: "elasticsearch"
-            elastic-version: 8.2.3
-            elastic-branch: 8.2
+            logstash-version: 8.2.3
+            logstash-branch: 8.2
+            elasticsearch-version: 8
             prefix: ""
             tags-latest: "8.2"
 
           - output: "elasticsearch"
-            elastic-version: 8.3.3
-            elastic-branch: 8.3
+            logstash-version: 8.3.3
+            logstash-branch: 8.3
+            elasticsearch-version: 8
             prefix: ""
-            tags-latest: "latest"
+            tags-latest: "8.3"
 
           - output: "elasticsearch"
-            elastic-version: 8.4.2
-            elastic-branch: 8.4
+            logstash-version: 8.4.2
+            logstash-branch: 8.4
+            elasticsearch-version: 8
             prefix: ""
-            tags-latest: "latest"
+            tags-latest: "8.4"
 
           - output: "influxdb"
-            elastic-version: 7.17.6
-            elastic-branch: 7.17
+            logstash-version: 7.17.6
+            logstash-branch: 7.17
+            elasticsearch-version: 7
             prefix: "influxdb-"
-            tags-latest: "influxdb-7"
+            tags-latest: "influxdb"
 
           - output: "influxdb"
-            elastic-version: 8.1.3
-            elastic-branch: 8.1
+            logstash-version: 8.1.3
+            logstash-branch: 8.1
+            elasticsearch-version: 8
             prefix: "influxdb-"
             tags-latest: "influxdb-8.1"
 
           - output: "influxdb"
-            elastic-version: 8.2.3
-            elastic-branch: 8.2
+            logstash-version: 8.2.3
+            logstash-branch: 8.2
+            elasticsearch-version: 8
             prefix: "influxdb-"
             tags-latest: "influxdb"
 
           - output: "influxdb"
-            elastic-version: 8.3.3
-            elastic-branch: 8.3
+            logstash-version: 8.3.3
+            logstash-branch: 8.3
+            elasticsearch-version: 8
             prefix: "influxdb-"
             tags-latest: "influxdb-8.3"
 
           - output: "influxdb"
-            elastic-version: 8.4.2
-            elastic-branch: 8.4
+            logstash-version: 8.4.2
+            logstash-branch: 8.4
+            elasticsearch-version: 8
             prefix: "influxdb-"
-            tags-latest: "influxdb"
+            tags-latest: "influxdb-8.4"
 
 
     # v2 https://github.com/docker/build-push-action/blob/master/UPGRADE.md
@@ -81,15 +91,16 @@ jobs:
         run: |
           echo output=${{ matrix.output }}
           echo prefix=${{ matrix.prefix }}
-          echo elastic-version=${{ matrix.elastic-version }}
-          echo elastic-branch=${{ matrix.elastic-branch }}
+          echo logstash-version=${{ matrix.logstash-version }}
+          echo logstash-branch=${{ matrix.logstash-branch }}
+          echo elasticsearch-version=${{ matrix.elasticsearch-version }}
           echo tags-latest=${{ matrix.tags-latest }}
 
       - name: Prepare 📦
         id: prep
         run: |
           DOCKER_IMAGE=anasoid/jmeter-logstash
-          VERSION="${{ matrix.prefix }}${{ matrix.elastic-version }}"
+          VERSION="${{ matrix.prefix }}${{ matrix.logstash-version }}"
           echo ::set-output name=image::${DOCKER_IMAGE}
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
@@ -119,11 +130,12 @@ jobs:
           load: true
           push: false
           build-args: |
-            LOGSTASH_VERSION=${{ matrix.elastic-version }}
+            LOGSTASH_VERSION=${{ matrix.logstash-version }}
+            ELASTICSEARCH_VERSION=${{ matrix.elasticsearch-version }}
 
           tags: |
-            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.elastic-version }}
-            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.elastic-branch }}
+            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.logstash-version }}
+            ${{ steps.prep.outputs.image }}:${{ matrix.prefix }}${{ matrix.logstash-branch }}
             ${{ steps.prep.outputs.image }}:${{ matrix.tags-latest }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
@@ -134,7 +146,7 @@ jobs:
       - name: Result 📦
         id: result
         run: |
-          echo ::set-output name=currentImage::${{ steps.prep.outputs.image }}:${{ matrix.elastic-branch }}
+          echo ::set-output name=currentImage::${{ steps.prep.outputs.image }}:${{ matrix.logstash-branch }}
 
       #Publish on master
       - name: Login to DockerHub 📦
