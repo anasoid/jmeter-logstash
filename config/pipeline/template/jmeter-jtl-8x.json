@@ -1,0 +1,53 @@
+{
+  "index_patterns": "jmeter-jtl-*",
+  "version": 80001,
+  "template" : {
+    "settings": {
+      "index.refresh_interval": "5s",
+      "number_of_shards": 1
+    },
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "message_field": {
+            "path_match": "message",
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "text",
+              "norms": false
+            }
+          }
+        },
+        {
+          "string_fields": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "keyword"
+            }
+          }
+        }
+      ],
+      "properties": {
+        "dataType": { "type": "keyword" },
+        "domain": { "type": "keyword" },
+        "executionid": { "type": "keyword" },
+        "filename": { "type": "keyword" },
+        "host": { "type": "keyword" },
+        "node": { "type": "keyword" },
+        "responseCode": { "type": "keyword" },
+        "testname": { "type": "keyword" },
+        "project": { "type": "keyword" },
+        "environment": { "type": "keyword" },
+        "label": { "type": "keyword" },
+        "labels": { "type": "keyword" },
+        "threadName": { "type": "keyword" },
+        "threadGrpName": { "type": "keyword" },
+        "path": { "type": "keyword" },
+        "globalLabel": { "type": "keyword" },
+        "@timestamp": { "type": "date" },
+        "@version": { "type": "keyword" }
+      }
+    }
+  }
+}
