@@ -55,7 +55,7 @@ jobs:
           ls -lah build/config/pipeline
           cp -r docker/elasticsearch build
           ls -lah build
-          docker build -f build/docker/elasticsearch/Dockerfile -t jmeter-logstash-elastic
+          docker build -f build/elasticsearch/Dockerfile -t jmeter-logstash-elastic build
        # Run docker
       - name: Run docker
         run: |
@@ -63,7 +63,6 @@ jobs:
           -e "FILE_START_POSITION=beginning" \
           -e "FILE_EXIT_AFTER_READ=true" \
           -v ${PWD}/$PATH_OUT:/output/ \
-          -v ${PWD}/$PATH_IN:/input/ -v ${PWD}/build/config/pipeline:/usr/share/logstash/pipeline/ \
           -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml jmeter-logstash-elastic
 
       - name: check Expected Files list
