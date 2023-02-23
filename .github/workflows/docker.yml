@@ -12,7 +12,7 @@ jobs:
       matrix:
         include:
           - output: "elasticsearch"
-            logstash-version: 7.17.6
+            logstash-version: 7.17.9
             logstash-branch: 7.17
             elasticsearch-version: 7
             prefix: ""
@@ -47,7 +47,7 @@ jobs:
             tags-latest: "8.4"
 
           - output: "influxdb"
-            logstash-version: 7.17.6
+            logstash-version: 7.17.9
             logstash-branch: 7.17
             elasticsearch-version: 7
             prefix: "influxdb-"
