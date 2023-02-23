@@ -107,7 +107,7 @@ jobs:
           if [[ "${{ matrix.with-plugins }}" == "true" ]];then echo "suffix=-plugins" >> $GITHUB_OUTPUT; else echo "suffix=" >> $GITHUB_OUTPUT; fi;
 
       - name: Show Image Settings 📦
-        run: echo "IMAGE=${{ steps.prep.outputs.image }} VERSION=${{ steps.prep.outputs.version }} TAGS=${{ steps.prep.outputs.tags }}"
+        run: echo "IMAGE=${{ steps.prep.outputs.image }} VERSION=${{ steps.prep.outputs.version }}"
 
       - name: Set up Docker Buildx 📦
         id: buildx
@@ -146,7 +146,7 @@ jobs:
       - name: Result 📦
         id: result
         run: |
-          echo ::set-output name=currentImage::${{ steps.prep.outputs.image }}:${{ matrix.logstash-branch }}
+          echo ::set-output "currentImage=${{ steps.prep.outputs.image }}:${{ matrix.logstash-branch }}"  >> $GITHUB_OUTPUT
 
       #Publish on master
       - name: Login to DockerHub 📦
