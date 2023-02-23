@@ -46,7 +46,7 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
   - [Content](#content)
   - [Image Variants](#image-variants)
 - [Getting Started](#getting-started)
-  - [Create ElasticSearch stack (_Only if using ElasticSearch & Kibana_)](#create-elasticsearch-stack-only-if-using-elasticsearch--kibana)
+  - [Create ElasticSearch stack (_Only if using ElasticSearch \& Kibana_)](#create-elasticsearch-stack-only-if-using-elasticsearch--kibana)
   - [Run Logstash](#run-logstash)
     - [Run With image from docker hub for Elasticsearch (way 1, preferred)](#run-with-image-from-docker-hub-for-elasticsearch-way-1-preferred)
     - [Run Directly for ElasticSearch (way 2)](#run-directly-for-elasticsearch-way-2)
@@ -60,14 +60,14 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
     - [InfluxDB configuration](#influxdb-configuration)
     - [Logstash](#logstash)
   - [Fields](#fields)
-- [Troubleshooting & Limitation](#troubleshooting--limitation)
+- [Troubleshooting \& Limitation](#troubleshooting--limitation)
 
 ## Image Variants
 
 The `jmeter-logstash` images come in many flavors, each designed for a specific use case.
 The images version are based on component used to build image, default use elasticsearch output:
 
-1. **Logstash Version**: 7.17.6 -> default for 7.17.
+1. **Logstash Version**: 7.17.9 -> default for 7.17.
 1. **influxdb** : Pre-configured image with influxdb output.
 
 # Getting Started
@@ -124,7 +124,7 @@ docker run --rm -it \
 -v ${PWD}/config/pipeline:/usr/share/logstash/pipeline/ \
 -v ${PWD}/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
 -v ${PWD}/config/settings/jvm.options:/usr/share/logstash/config/jvm.options \
-docker.elastic.co/logstash/logstash-oss:7.17.6
+docker.elastic.co/logstash/logstash-oss:7.17.9
 
 ```
 

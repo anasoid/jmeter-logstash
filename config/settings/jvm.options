@@ -45,6 +45,9 @@
 # ensure UTF-8 encoding by default (e.g. filenames)
 -Dfile.encoding=UTF-8
 
+# Set enableADS to true to enable Logstash to run on certain versions of the JDK
+-Djdk.io.File.enableADS=true
+
 # use our provided JNA always versus the system one
 #-Djna.nosys=true
 
@@ -82,3 +85,6 @@
 
 # Copy the logging context from parent threads to children
 -Dlog4j2.isThreadContextMapInheritable=true
+
+17-:--add-opens java.base/sun.nio.ch=ALL-UNNAMED
+17-:--add-opens java.base/java.io=ALL-UNNAMED
