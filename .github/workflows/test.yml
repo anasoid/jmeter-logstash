@@ -53,7 +53,9 @@ jobs:
           mkdir $PATH_OUT
           chmod +777 $PATH_OUT
           ls -lah build/config/pipeline
-
+          cp -r docker/elasticsearch build
+          ls -lah build
+          docker build -f build/docker/elasticsearch/Dockerfile -t jmeter-logstash-elastic
        # Run docker
       - name: Run docker
         run: |
@@ -62,7 +64,7 @@ jobs:
           -e "FILE_EXIT_AFTER_READ=true" \
           -v ${PWD}/$PATH_OUT:/output/ \
           -v ${PWD}/$PATH_IN:/input/ -v ${PWD}/build/config/pipeline:/usr/share/logstash/pipeline/ \
-          -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml docker.elastic.co/logstash/logstash-oss:7.15.1
+          -v ${PWD}/build/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml jmeter-logstash-elastic
 
       - name: check Expected Files list
         run: |
