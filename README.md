@@ -23,7 +23,6 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
 - [`influxdb-8.2`, `influxdb-8.2.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 - [`influxdb-8.1`, `influxdb-8.1.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 
-
 ## Features
 
 1. Parse Standard JTL (CSV Format).
@@ -46,10 +45,9 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
   - [Content](#content)
   - [Image Variants](#image-variants)
 - [Getting Started](#getting-started)
-  - [Create ElasticSearch stack (_Only if using ElasticSearch & Kibana_)](#create-elasticsearch-stack-only-if-using-elasticsearch--kibana)
+  - [Create ElasticSearch stack (_Only if using ElasticSearch \& Kibana_)](#create-elasticsearch-stack-only-if-using-elasticsearch--kibana)
   - [Run Logstash](#run-logstash)
     - [Run With image from docker hub for Elasticsearch (way 1, preferred)](#run-with-image-from-docker-hub-for-elasticsearch-way-1-preferred)
-    - [Run Directly for ElasticSearch (way 2)](#run-directly-for-elasticsearch-way-2)
     - [Run With image from docker hub for InfluxDB](#run-with-image-from-docker-hub-for-influxdb)
   - [Dashboards](#dashboards)
     - [Kibana](#kibana)
@@ -60,14 +58,14 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
     - [InfluxDB configuration](#influxdb-configuration)
     - [Logstash](#logstash)
   - [Fields](#fields)
-- [Troubleshooting & Limitation](#troubleshooting--limitation)
+- [Troubleshooting \& Limitation](#troubleshooting--limitation)
 
 ## Image Variants
 
 The `jmeter-logstash` images come in many flavors, each designed for a specific use case.
 The images version are based on component used to build image, default use elasticsearch output:
 
-1. **Logstash Version**: 7.17.6 -> default for 7.17.
+1. **Logstash Version**: 7.17.9 -> default for 7.17.
 1. **influxdb** : Pre-configured image with influxdb output.
 
 # Getting Started
@@ -102,29 +100,12 @@ docker run --name jmeter-kibana  --net jmeter -p 5601:5601 -e "ELASTICSEARCH_HOS
 1. In the project folder create a folder named 'input' or you can use any input folder in your machine.
 1. If you choose to use a different input folder, you should change **"${PWD}/input"** on the following command by your input folder.
 
-
-
 ### Run With image from docker hub for Elasticsearch (way 1, preferred)
 
 ```shell
 
 #Run Image
 docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200" -v ${PWD}/input:/input/ anasoid/jmeter-logstash
-
-```
-
-### Run Directly for ElasticSearch (way 2)
-1. Clone this repository or download it.
-1. On the project folder execute the following command, (${PWD} it's the current folder). ${PWD} can be replaced by full path to folder.
-
-```shell
-docker run --rm -it \
--e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9200"  --net jmeter \
--v ${PWD}/input:/input/ \
--v ${PWD}/config/pipeline:/usr/share/logstash/pipeline/ \
--v ${PWD}/config/settings/logstash.yml:/usr/share/logstash/config/logstash.yml \
--v ${PWD}/config/settings/jvm.options:/usr/share/logstash/config/jvm.options \
-docker.elastic.co/logstash/logstash-oss:7.17.6
 
 ```
 
