@@ -82,7 +82,7 @@ jobs:
             export PATH_EXPECTED=testing/file/${testtype}/expected
             echo "##CHECK expected folder $PATH_EXPECTED"
              ls -la $PATH_EXPECTED
-            export PATH_OUT=testing/file/${testtype}/in
+            export PATH_OUT=build/out/${testtype}
             echo "##CHECK PATH_OUT folder $PATH_OUT"
             ls -la $PATH_OUT
             for filepath in $PATH_EXPECTED/*.json; do
