@@ -71,6 +71,12 @@ jobs:
           docker run --rm -e "FILE_READ_MODE=read" \
           -e "FILE_START_POSITION=beginning" \
           -e "FILE_EXIT_AFTER_READ=true" \
+          -e "EXECUTION_ID=myexecution" \
+          -e "PROJECT_NAME=myproject" \
+          -e "ENVIRONMENT_NAME=myenv" \
+          -e "TEST_NAME=mytest" \
+          -e "TEST_METADATA=users=50,location=europe,key=myvalue" \
+          -e "TEST_TAGS=prd,tnr,mytag" \
           -v ${PWD}/$PATH_OUT_FULL:/output/ \
           -v ${PWD}/$PATH_IN_FULL:/input/  \
           jmeter-logstash-elastic
