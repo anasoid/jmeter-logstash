@@ -22,8 +22,7 @@ jobs:
       PATH_OUT_FULL: build/out/full
       PATH_IN_FULL: testing/full/file/in
       PATH_IN_BASIC: testing/basic/file/in
-      PATH_EXPECTED_FULL: testing/full/file/expected
-      PATH_EXPECTED_BASIC: testing/basic/file/expected
+
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -78,7 +77,8 @@ jobs:
 
       - name: check Expected Files list
         run: |
-         for testtype in basic full
+         for testtype in basic full ; do
+            echo "Start check for ${testtype}"
             export PATH_EXPECTED=testing/${testtype}/file/expected
             echo "##CHECK expected folder $PATH_EXPECTED"
             export PATH_OUT=testing/${testtype}/file/in
