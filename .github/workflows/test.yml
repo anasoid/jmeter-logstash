@@ -62,8 +62,8 @@ jobs:
           docker run --rm -e "FILE_READ_MODE=read" \
           -e "FILE_START_POSITION=beginning" \
           -e "FILE_EXIT_AFTER_READ=true" \
-          -v ${PWD}/$PATH_IN_BASIC:/output/ \
-          -v ${PWD}/$PATH_OUT_BASIC:/input/  \
+          -v ${PWD}/$PATH_OUT_BASIC:/output/ \
+          -v ${PWD}/$PATH_IN_BASIC:/input/  \
           jmeter-logstash-elastic
 
       - name: Run docker FULL
@@ -71,8 +71,8 @@ jobs:
           docker run --rm -e "FILE_READ_MODE=read" \
           -e "FILE_START_POSITION=beginning" \
           -e "FILE_EXIT_AFTER_READ=true" \
-          -v ${PWD}/$PATH_IN_FULL:/output/ \
-          -v ${PWD}/$PATH_OUT_FULL:/input/  \
+          -v ${PWD}/$PATH_OUT_FULL:/output/ \
+          -v ${PWD}/$PATH_IN_FULL:/input/  \
           jmeter-logstash-elastic
 
       - name: check Expected Files list
@@ -81,9 +81,10 @@ jobs:
             echo "Start check for ${testtype}"
             export PATH_EXPECTED=testing/file/${testtype}/expected
             echo "##CHECK expected folder $PATH_EXPECTED"
+             ls -la $PATH_EXPECTED
             export PATH_OUT=testing/file/${testtype}/in
             echo "##CHECK PATH_OUT folder $PATH_OUT"
-            ls -la $PATH_EXPECTED
+            ls -la $PATH_OUT
             for filepath in $PATH_EXPECTED/*.json; do
                  FILE_NAME=${filepath##*/}
                  echo "####START###############################$FILE_NAME#####################################"
