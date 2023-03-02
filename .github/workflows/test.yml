@@ -20,8 +20,8 @@ jobs:
     env:
       PATH_OUT_BASIC: build/out/basic
       PATH_OUT_FULL: build/out/full
-      PATH_IN_FULL: testing/full/file/in
-      PATH_IN_BASIC: testing/basic/file/in
+      PATH_IN_FULL: testing/file/full/in
+      PATH_IN_BASIC: testing/file/basic/in
 
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -79,9 +79,9 @@ jobs:
         run: |
          for testtype in basic full ; do
             echo "Start check for ${testtype}"
-            export PATH_EXPECTED=testing/${testtype}/file/expected
+            export PATH_EXPECTED=testing/file/${testtype}/expected
             echo "##CHECK expected folder $PATH_EXPECTED"
-            export PATH_OUT=testing/${testtype}/file/in
+            export PATH_OUT=testing/file/${testtype}/in
             echo "##CHECK PATH_OUT folder $PATH_OUT"
             ls -la $PATH_EXPECTED
             for filepath in $PATH_EXPECTED/*.json; do
