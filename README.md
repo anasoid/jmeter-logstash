@@ -11,17 +11,17 @@ Jmeter JTL parsing with Logstash and elasticsearch, you can find image on [Docke
 
 ## Image version
 
-- [ `latest`, `7.17`, `7.17.6` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
-- [ `8.4`, `8.4.2` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
-- [ `8.3`, `8.3.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
-- [ `8.2`, `8.2.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
-- [ `8.1`, `8.1.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [`latest`, `7.17`, `7.17.6`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [`8.4`, `8.4.2`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [`8.3`, `8.3.3`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [`8.2`, `8.2.3`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
+- [`8.1`, `8.1.3`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/elasticsearch/Dockerfile)
 
-- [`influxdb`, `influxdb-7.17`, `influxdb-7.17.6` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
-- [`influxdb-8.4`, `influxdb-8.4.2` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
-- [`influxdb-8.3`, `influxdb-8.3.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
-- [`influxdb-8.2`, `influxdb-8.2.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
-- [`influxdb-8.1`, `influxdb-8.1.3` ](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+- [`influxdb`, `influxdb-7.17`, `influxdb-7.17.6`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+- [`influxdb-8.4`, `influxdb-8.4.2`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+- [`influxdb-8.3`, `influxdb-8.3.3`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+- [`influxdb-8.2`, `influxdb-8.2.3`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
+- [`influxdb-8.1`, `influxdb-8.1.3`](https://github.com/anasoid/jmeter-logstash/blob/master/docker/influxdb/Dockerfile)
 
 ## Features
 
@@ -183,7 +183,7 @@ docker run --rm -it -e "INFLUXDB_PORT=9090" -e "INFLUXDB_HOST=localhost" -v ${PW
 
 | Environment variables            | Description                                                                                                                                                                                                                      | Default                                  |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| `ELASTICSEARCH_HOSTS`            | Elasticsearch output configuration [hosts](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-hosts)                                                              | http://elasticsearch:9200                |
+| `ELASTICSEARCH_HOSTS`            | Elasticsearch output configuration [hosts](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-hosts)                                                              | <http://elasticsearch:9200>                |
 | `ELASTICSEARCH_INDEX`            | Elasticsearch output configuration [index](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-index)                                                              | jmeter-jtl-%{+YYYY.MM.dd}                |
 | `ELASTICSEARCH_USER`             | Elasticsearch output configuration [user](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-user)                                                                |                                          |
 | `ELASTICSEARCH_PASSWORD`         | Elasticsearch output configuration [password](https://www.elastic.co/guide/en/logstash/current/plugins-outputs-elasticsearch.html#plugins-outputs-elasticsearch-password)                                                        |                                          |
@@ -267,6 +267,7 @@ For additional fields see documentation on [Results file configuration](https://
 | `subresult`                 | boolean (tag) | boolean  | parsing       | true if sample is a sub result (see field: _globalLabel_)                                                                                                                                                                                                                                                                                                                                                                                        |
 | `success`                   | boolean (tag) | boolean  | csv           | true or false.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `testname`                  | string (tag)  | string   | parsing       | Test name, as input using environment variable or extracted from filename.                                                                                                                                                                                                                                                                                                                                                                       |
+| `testtags`                  | -  | string   | parsing       | List of keywords extracted by splitting environnement variable "TEST_TAGS" from environment variable                                                                                                                                                                                                      |
 | `teststart`                 | -             | date     | csv           | Test start time. This field need to have started test time logged to csv (add this variable name _TESTSTART.MS_ to property _sample_variables_)                                                                                                                                                                                                                                                                                                  |
 | `threadGrpId`               | long          | long     | parsing       | The number of thread group. (Extract from threadName) .                                                                                                                                                                                                                                                                                                                                                                                          |
 | `threadGrpName`             | string (tag)  | string   | parsing       | The name of thread group.(Extract from threadName) .                                                                                                                                                                                                                                                                                                                                                                                             |
