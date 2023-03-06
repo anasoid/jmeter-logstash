@@ -1,0 +1,41 @@
+{
+  "pct90": 21,
+  "minResTime": 9,
+  "project": "myproject",
+  "pct99": 466,
+  "errorCount": 4035,
+  "label": "Total",
+  "users": "50",
+  "throughput": 36,
+  "pct2ResTime": 27,
+  "sentKBytesPerSec": 48,
+  "labels": [
+    "Total"
+  ],
+  "errorPct": 83,
+  "filename": "stats-admin-20211018-082256",
+  "@timestamp": "2023-03-06T15:23:01.409Z",
+  "sampleCount": 4817,
+  "meanResTime": 47,
+  "testname": "mytest",
+  "receivedKBytesPerSec": 250,
+  "pct3ResTime": 466,
+  "location": "europe",
+  "environment": "myenv",
+  "executionid": "myexecution",
+  "origin": "stat",
+  "testtags": [
+    "prd",
+    "tnr",
+    "mytag"
+  ],
+  "subresult": false,
+  "globalLabel": "Total",
+  "key": "myvalue",
+  "pct95": 27,
+  "pct1ResTime": 21,
+  "medianResTime": 12,
+  "maxResTime": 120021,
+  "isTotal": true,
+  "@version": "1"
+}
