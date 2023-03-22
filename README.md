@@ -114,7 +114,7 @@ docker run --rm -it --net jmeter -e "ELASTICSEARCH_HOSTS=http://jmeter-elastic:9
 
 ### Run With image from docker hub for InfluxDB
 
-Adapt parameters for your Influxdb like (INFLUXDB_HOST ..) See [InfluxDB configuration](#influxdb- configuration).
+Adapt parameters for your Influxdb like (INFLUXDB_HOST ..) See [InfluxDB configuration](#influxdb-configuration).
 
 ```shell
 #Run Image
