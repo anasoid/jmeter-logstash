@@ -1,0 +1,33 @@
+{
+  "errorPct": 83,
+  "origin": "stat",
+  "receivedKBytesPerSec": 14,
+  "isTotal": false,
+  "project": "undefined",
+  "meanResTime": 30,
+  "globalLabel": "GetPDPBijouxFR",
+  "sentKBytesPerSec": 13,
+  "labels": [
+    "GetPDPBijouxFR"
+  ],
+  "testname": "stats",
+  "pct99": 1019,
+  "executionid": "20211018-082256",
+  "pct1ResTime": 23,
+  "filename": "stats-admin-20211018-082256",
+  "pct95": 30,
+  "@version": "1",
+  "label": "GetPDPBijouxFR",
+  "environment": "admin",
+
+  "minResTime": 9,
+  "errorCount": 245,
+  "pct90": 23,
+  "pct3ResTime": 1019,
+  "@timestamp": "2023-03-06T13:57:01.287Z",
+  "sampleCount": 293,
+  "pct2ResTime": 30,
+  "throughput": 10,
+  "medianResTime": 12,
+  "maxResTime": 1054
+}
