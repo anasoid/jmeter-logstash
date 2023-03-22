@@ -19,7 +19,6 @@
   "@version": "1",
   "label": "Total",
   "environment": "admin",
-  "subresult": false,
   "minResTime": 9,
   "errorCount": 4035,
   "pct90": 21,

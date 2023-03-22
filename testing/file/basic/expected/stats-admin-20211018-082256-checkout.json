@@ -19,7 +19,6 @@
   "@version": "1",
   "label": "checkout",
   "environment": "admin",
-  "subresult": false,
   "minResTime": 9,
   "errorCount": 245,
   "pct90": 23,

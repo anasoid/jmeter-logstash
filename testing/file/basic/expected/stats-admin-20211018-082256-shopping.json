@@ -19,7 +19,6 @@
   "@version": "1",
   "label": "shopping",
   "environment": "admin",
-  "subresult": false,
   "minResTime": 27,
   "errorCount": 0,
   "pct90": 120021,
