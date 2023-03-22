@@ -18,9 +18,11 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      PATH_OUT: build/out
-      PATH_IN: testing/file/in
-      PATH_EXPECTED: testing/file/expected
+      PATH_OUT_BASIC: build/out/basic
+      PATH_OUT_FULL: build/out/full
+      PATH_IN_FULL: testing/file/full/in
+      PATH_IN_BASIC: testing/file/basic/in
+
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -46,26 +48,50 @@ jobs:
           cp -r config build
           cp -r testing/config/* build/config/
           rm build/config/pipeline/output-elastic-logstash.conf
-          mkdir $PATH_OUT
-          chmod +777 $PATH_OUT
+          mkdir -p $PATH_OUT_BASIC
+          chmod +777 $PATH_OUT_BASIC
+          mkdir -p $PATH_OUT_FULL
+          chmod +777 $PATH_OUT_FULL
           ls -lah build/config/pipeline
           cp -r docker/elasticsearch build
           ls -lah build
           docker build -f build/elasticsearch/Dockerfile -t jmeter-logstash-elastic build
        # Run docker
-      - name: Run docker
+      - name: Run docker basic
         run: |
           docker run --rm -e "FILE_READ_MODE=read" \
           -e "FILE_START_POSITION=beginning" \
           -e "FILE_EXIT_AFTER_READ=true" \
-          -v ${PWD}/$PATH_OUT:/output/ \
-          -v ${PWD}/$PATH_IN:/input/  \
+          -v ${PWD}/$PATH_OUT_BASIC:/output/ \
+          -v ${PWD}/$PATH_IN_BASIC:/input/  \
+          jmeter-logstash-elastic
+
+      - name: Run docker FULL
+        run: |
+          docker run --rm -e "FILE_READ_MODE=read" \
+          -e "FILE_START_POSITION=beginning" \
+          -e "FILE_EXIT_AFTER_READ=true" \
+          -e "EXECUTION_ID=myexecution" \
+          -e "PROJECT_NAME=myproject" \
+          -e "ENVIRONMENT_NAME=myenv" \
+          -e "TEST_NAME=mytest" \
+          -e "TEST_METADATA=users=50,location=europe,key=myvalue" \
+          -e "TEST_TAGS=prd,tnr,mytag" \
+          -v ${PWD}/$PATH_OUT_FULL:/output/ \
+          -v ${PWD}/$PATH_IN_FULL:/input/  \
           jmeter-logstash-elastic
 
       - name: check Expected Files list
         run: |
-         
-          for filepath in $PATH_EXPECTED/*.json; do
+         for testtype in basic full ; do
+            echo "Start check for ${testtype}"
+            export PATH_EXPECTED=testing/file/${testtype}/expected
+            echo "##CHECK expected folder $PATH_EXPECTED"
+             ls -la $PATH_EXPECTED
+            export PATH_OUT=build/out/${testtype}
+            echo "##CHECK PATH_OUT folder $PATH_OUT"
+            ls -la $PATH_OUT
+            for filepath in $PATH_EXPECTED/*.json; do
                  FILE_NAME=${filepath##*/}
                  echo "####START###############################$FILE_NAME#####################################"
                  EXPECTED_FILE=$PATH_EXPECTED/$FILE_NAME
@@ -78,6 +104,7 @@ jobs:
                  echo "####EXPECTED##########$FILE_NAME#####################"
                  diff <(jq --sort-keys 'del(.host) | del(."@timestamp")' $EXPECTED_FILE) <(jq --sort-keys 'del(.host) | del(."@timestamp")' $OUT_FILE)
                  echo "####END###############################$FILE_NAME#####################################"
+            done
           done
 
  
