@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-set -a pids
-
 SECONDS=0
 STEP_TIME_CHECK=10
 echo STEP_TIME_CHECK=$STEP_TIME_CHECK
@@ -15,10 +13,12 @@ echo "Start Logstashs"
 
 
 
-if [[ -z $1 ]]  ; then
+if [[ ! -z $1 ]]  ; then
+    echo "Start logstash with arguments $@"
     exec /usr/local/bin/docker-entrypoint "$@" &
     mpid=$!  # Remember pid of child
 else
+    echo "Start logstash without arguments"
     exec /usr/local/bin/docker-entrypoint &
     mpid=$!  # Remember pid of child
 fi
@@ -27,7 +27,7 @@ fi
 
 echo "  Logstash Started"
 
-#sleep 10
+sleep 10
 echo CONF_EXEC_TIMEOUT=$CONF_EXEC_TIMEOUT
 echo STEP_TIME_CHECK=$STEP_TIME_CHECK
 echo CONF_WAIT_INACTIVITY=$CONF_WAIT_INACTIVITY
@@ -49,7 +49,7 @@ for ((i = 0 ; i <= $ITERATIONS ; i++)); do
     if [[ "$status" == "0" || "$status" == "" ]]; then
         if  [[ "$DURATION" > "$CONF_WAIT_FIRST_DATA" ]]; then
             echo "Logstash exit waiting first data with  after $DURATION"
-            exit 1;
+            break
         fi
         echo "Logstash ($i) waiting to start message ($status)..."
         sleep $STEP_TIME_CHECK
