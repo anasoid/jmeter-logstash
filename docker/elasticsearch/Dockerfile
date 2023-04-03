@@ -21,4 +21,4 @@ VOLUME /usr/share/logstash/data/plugins/inputs/file
 
 
 
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["jmeter-logstash-entrypoint.sh"]
