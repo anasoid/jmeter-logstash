@@ -46,40 +46,6 @@ jobs:
             prefix: ""
             tags-latest: "8.4"
 
-          - output: "influxdb"
-            logstash-version: 7.17.9
-            logstash-branch: 7.17
-            elasticsearch-version: 7
-            prefix: "influxdb-"
-            tags-latest: "influxdb"
-
-          - output: "influxdb"
-            logstash-version: 8.1.3
-            logstash-branch: 8.1
-            elasticsearch-version: 8
-            prefix: "influxdb-"
-            tags-latest: "influxdb-8.1"
-
-          - output: "influxdb"
-            logstash-version: 8.2.3
-            logstash-branch: 8.2
-            elasticsearch-version: 8
-            prefix: "influxdb-"
-            tags-latest: "influxdb"
-
-          - output: "influxdb"
-            logstash-version: 8.3.3
-            logstash-branch: 8.3
-            elasticsearch-version: 8
-            prefix: "influxdb-"
-            tags-latest: "influxdb-8.3"
-
-          - output: "influxdb"
-            logstash-version: 8.4.2
-            logstash-branch: 8.4
-            elasticsearch-version: 8
-            prefix: "influxdb-"
-            tags-latest: "influxdb-8.4"
 
 
     # v2 https://github.com/docker/build-push-action/blob/master/UPGRADE.md

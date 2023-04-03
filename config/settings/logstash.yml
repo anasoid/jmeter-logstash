@@ -1,3 +1,2 @@
-pipeline.workers: 1
 http.host: "0.0.0.0"
 pipeline.ecs_compatibility: disabled
