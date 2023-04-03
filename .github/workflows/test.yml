@@ -46,6 +46,7 @@ jobs:
         run: |
           mkdir build
           cp -r config build
+          cp -r docker build
           cp -r testing/config/* build/config/
           rm build/config/pipeline/output-elastic-logstash.conf
           mkdir -p $PATH_OUT_BASIC
