@@ -112,7 +112,7 @@ jobs:
       - name: Result 📦
         id: result
         run: |
-          echo ::set-output "currentImage=${{ steps.prep.outputs.image }}:${{ matrix.logstash-branch }}"  >> $GITHUB_OUTPUT
+          echo "currentImage=${{ steps.prep.outputs.image }}:${{ matrix.logstash-branch }}"  >> $GITHUB_OUTPUT
 
       - name: Validate config ☁️
 
