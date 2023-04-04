@@ -116,7 +116,7 @@ jobs:
 
       - name: Validate config ☁️
 
-        run: docker run --rm -it -e "FILE_EXIT_AFTER_READ=false" ${{ steps.result.outputs.currentImage }} -t
+        run: docker run --rm -e "FILE_EXIT_AFTER_READ=false" ${{ steps.result.outputs.currentImage }} -t
 
       #Publish on master
       - name: Login to DockerHub 📦
