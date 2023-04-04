@@ -114,6 +114,10 @@ jobs:
         run: |
           echo ::set-output "currentImage=${{ steps.prep.outputs.image }}:${{ matrix.logstash-branch }}"  >> $GITHUB_OUTPUT
 
+      - name: Validate config ☁️
+
+        run: docker run --rm -it -e "FILE_EXIT_AFTER_READ=false" ${{ steps.result.outputs.currentImage }} -t
+
       #Publish on master
       - name: Login to DockerHub 📦
         if: ${{ github.ref_name == 'master' }}
