@@ -10,7 +10,7 @@ echo CONF_WAIT_INACTIVITY=$CONF_WAIT_INACTIVITY
 echo "Start Logstashs"
 
 
-if [ "$FILE_EXIT_AFTER_READ" != "true" ]  ; then
+if [[ "$FILE_EXIT_AFTER_READ" != "true" || "$CONF_EXIT_AFTER_READ" != "true" ]]  ; then
     echo "Start in standalone mode"
     exec /usr/local/bin/docker-entrypoint "$@"
     
@@ -32,6 +32,7 @@ else
     echo STEP_TIME_CHECK=$STEP_TIME_CHECK
     echo CONF_WAIT_INACTIVITY=$CONF_WAIT_INACTIVITY
     echo CONF_READY_WAIT_FILE=$CONF_READY_WAIT_FILE
+    echo CONF_EXIT_AFTER_READ=$EXIT_AFTER_READ
     
     STEP_TIME_CHECK=10
     ITERATIONS=$(($CONF_WAIT_FIRST_DATA / $STEP_TIME_CHECK))
