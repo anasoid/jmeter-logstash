@@ -1,4 +1,4 @@
-ARG LOGSTASH_VERSION=7.17.9
+ARG LOGSTASH_VERSION=7.17.10
 FROM docker.elastic.co/logstash/logstash-oss:${LOGSTASH_VERSION}
 
 
