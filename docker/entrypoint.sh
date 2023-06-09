@@ -10,9 +10,9 @@ echo CONF_WAIT_INACTIVITY=$CONF_WAIT_INACTIVITY
 echo "Start Logstashs"
 
 
-if [[ "$FILE_EXIT_AFTER_READ" != "true" || "$CONF_EXIT_AFTER_READ" != "true" ]]  ; then
+if [[ "$FILE_EXIT_AFTER_READ" != "true" && "$CONF_EXIT_AFTER_READ" != "true" ]]  ; then
     echo "Start in standalone mode"
-    exec /usr/local/bin/docker-entrypoint "$@"
+    exec timeout -s 9 $CONF_EXEC_TIMEOUT  /usr/local/bin/docker-entrypoint "$@"
     
 else
     
