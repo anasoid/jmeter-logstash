@@ -46,6 +46,7 @@ jobs:
         run: |
           mkdir build
           cp -r config build
+          cp -r docker build
           cp -r testing/config/* build/config/
           rm build/config/pipeline/output-elastic-logstash.conf
           mkdir -p $PATH_OUT_BASIC
@@ -97,12 +98,12 @@ jobs:
                  EXPECTED_FILE=$PATH_EXPECTED/$FILE_NAME
                  OUT_FILE=$PATH_OUT/$FILE_NAME
                  echo "####OUT###############$FILE_NAME#####################"
-                 jq --sort-keys 'del(.host) | del(."@timestamp")'  $OUT_FILE
+                 jq --sort-keys 'del(.host) | del(."@timestamp") | del(.timestamp)'  $OUT_FILE
                  echo "####OUT###############$FILE_NAME#####################"
                  echo "####EXPECTED##########$FILE_NAME#####################"
-                 jq --sort-keys 'del(.host) | del(."@timestamp")'  $EXPECTED_FILE
+                 jq --sort-keys 'del(.host) | del(."@timestamp") | del(.timestamp)'  $EXPECTED_FILE
                  echo "####EXPECTED##########$FILE_NAME#####################"
-                 diff <(jq --sort-keys 'del(.host) | del(."@timestamp")' $EXPECTED_FILE) <(jq --sort-keys 'del(.host) | del(."@timestamp")' $OUT_FILE)
+                 diff <(jq --sort-keys 'del(.host) | del(."@timestamp") | del(.timestamp)' $EXPECTED_FILE) <(jq --sort-keys 'del(.host) | del(."@timestamp") | del(.timestamp)' $OUT_FILE)
                  echo "####END###############################$FILE_NAME#####################################"
             done
           done

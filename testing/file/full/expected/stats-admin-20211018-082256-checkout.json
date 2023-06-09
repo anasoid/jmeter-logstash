@@ -1,0 +1,40 @@
+{
+  "pct90": 23,
+  "minResTime": 9,
+  "project": "myproject",
+  "pct99": 1019,
+  "errorCount": 245,
+  "label": "checkout",
+  "users": "50",
+  "throughput": 10,
+  "pct2ResTime": 30,
+  "sentKBytesPerSec": 13,
+  "labels": [
+    "checkout"
+  ],
+  "errorPct": 83,
+  "filename": "stats-admin-20211018-082256",
+  "@timestamp": "2023-03-06T15:23:01.425Z",
+  "sampleCount": 293,
+  "meanResTime": 30,
+  "testname": "mytest",
+  "receivedKBytesPerSec": 14,
+  "pct3ResTime": 1019,
+  "location": "europe",
+  "environment": "myenv",
+  "executionid": "myexecution",
+  "origin": "stat",
+  "testtags": [
+    "prd",
+    "tnr",
+    "mytag"
+  ],
+  "globalLabel": "checkout",
+  "key": "myvalue",
+  "pct95": 30,
+  "pct1ResTime": 23,
+  "medianResTime": 12,
+  "maxResTime": 1054,
+  "isTotal": false,
+  "@version": "1"
+}

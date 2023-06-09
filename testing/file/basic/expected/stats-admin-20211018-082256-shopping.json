@@ -1,0 +1,32 @@
+{
+  "errorPct": 0,
+  "origin": "stat",
+  "receivedKBytesPerSec": 0,
+  "isTotal": false,
+  "project": "undefined",
+  "meanResTime": 30034,
+  "globalLabel": "shopping",
+  "sentKBytesPerSec": 0,
+  "labels": [
+    "shopping"
+  ],
+  "testname": "stats",
+  "pct99": 120021,
+  "executionid": "20211018-082256",
+  "pct1ResTime": 120021,
+  "filename": "stats-admin-20211018-082256",
+  "pct95": 120021,
+  "@version": "1",
+  "label": "shopping",
+  "environment": "admin",
+  "minResTime": 27,
+  "errorCount": 0,
+  "pct90": 120021,
+  "pct3ResTime": 120021,
+  "@timestamp": "2023-03-06T13:57:01.264Z",
+  "sampleCount": 4,
+  "pct2ResTime": 120021,
+  "throughput": 0,
+  "medianResTime": 44,
+  "maxResTime": 120021
+}
