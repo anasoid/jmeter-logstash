@@ -89,7 +89,7 @@ jobs:
 
       - name: Docker Build only - retain local Image 📦
         id: build
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: docker/${{ matrix.output }}/Dockerfile
